@@ -27,7 +27,7 @@
       if (/^([0-9a-f]{2})+$/i.test(hex)) {
         var url = hex.match(/../g).map(function (h) { return String.fromCharCode(parseInt(h, 16)); }).join('');
         // Solo se permite volver a la app (nunca a una web).
-        if (/^(finanzas|exp):///.test(url)) base = url.split('?')[0];
+        if (url.indexOf('finanzas://') === 0 || url.indexOf('exp://') === 0) base = url.split('?')[0];
       }
     } catch (e) {}
     var target = base + window.location.search;

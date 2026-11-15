@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Volviendo a Finanzas…</title>
+  <style>
+    body { font-family: -apple-system, system-ui, sans-serif; text-align: center; padding: 48px 24px; color: #111; background: #f2f2f7; }
+    @media (prefers-color-scheme: dark) { body { color: #fff; background: #000; } }
+    a { display: inline-block; margin-top: 24px; padding: 14px 28px; border-radius: 14px; background: #007aff; color: #fff; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h2>Volviendo a la app Finanzas…</h2>
+  <p>Si no se abre sola, pulsa el botón.</p>
+  <a id="open" href="finanzas://banco">Abrir Finanzas</a>
+  <script>
+    // Página puente: reenvía a la app los parámetros que devuelve el banco
+    // (code, state o error). No guarda ni envía nada a ningún sitio.
+    var target = 'finanzas://banco' + window.location.search;
+    document.getElementById('open').href = target;
+    window.location.replace(target);
+  </script>
+</body>
+</html>

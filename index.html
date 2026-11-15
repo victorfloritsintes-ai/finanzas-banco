@@ -18,7 +18,19 @@
   <script>
     // Página puente: reenvía a la app los parámetros que devuelve el banco
     // (code, state o error). No guarda ni envía nada a ningún sitio.
-    var target = 'finanzas://banco' + window.location.search;
+    // El "state" lleva la dirección de vuelta de la app en hexadecimal
+    // (finanzas://banco en la app instalada, exp://…/--/banco en Expo Go).
+    var base = 'finanzas://banco';
+    try {
+      var state = new URLSearchParams(window.location.search).get('state') || '';
+      var hex = state.split('.')[1] || '';
+      if (/^([0-9a-f]{2})+$/i.test(hex)) {
+        var url = hex.match(/../g).map(function (h) { return String.fromCharCode(parseInt(h, 16)); }).join('');
+        // Solo se permite volver a la app (nunca a una web).
+        if (/^(finanzas|exp):///.test(url)) base = url.split('?')[0];
+      }
+    } catch (e) {}
+    var target = base + window.location.search;
     document.getElementById('open').href = target;
     window.location.replace(target);
   </script>
